@@ -1,0 +1,152 @@
+<script setup lang="ts">
+import type { TableColumn } from '@nuxt/ui'
+
+const { descriptors } = defineProps<{
+  descriptors: ModelDescriptor[]
+  aggregated?: {
+    label?: string
+    value: string | number
+  }[]
+}>()
+
+type ModelDescriptor = {
+  type?: string
+  description?: string
+  fragmentCount?: number
+  coefficient?: number
+  totalCoefficient?: number
+  trainingCount?: number
+  validationCount?: number
+}
+
+const hasTrainingCount = computed(() => {
+  return descriptors.every((d) => d.trainingCount !== undefined)
+})
+
+const hasValidationCount = computed(() => {
+  return descriptors.every((d) => d.validationCount !== undefined)
+})
+
+const columns = computed((): TableColumn<ModelDescriptor>[] => {
+  const baseColumns: TableColumn<ModelDescriptor>[] = [
+    {
+      accessorKey: 'type',
+      header: 'Value',
+      meta: {
+        class: {
+          th: 'align-top',
+          td: 'font-semibold whitespace-normal'
+        }
+      }
+    },
+    {
+      accessorKey: 'description',
+      header: 'Description',
+      meta: {
+        class: {
+          th: 'align-top'
+        }
+      }
+    },
+    {
+      accessorKey: 'fragmentCount',
+      header: 'Number',
+      cell: ({ row }) => row.getValue('fragmentCount'),
+      meta: {
+        class: {
+          th: 'align-top',
+          td: 'text-right'
+        }
+      }
+    },
+    {
+      accessorKey: 'coefficient',
+      header: 'Coefficient',
+      cell: ({ row }) => {
+        const coeff = row.getValue('coefficient')
+        return coeff !== undefined ? Number(coeff).toFixed(2) : undefined
+      },
+      meta: {
+        class: {
+          th: 'align-top',
+          td: 'text-right'
+        }
+      }
+    },
+    {
+      accessorKey: 'totalCoefficient',
+      header: 'Contribution',
+      cell: ({ row }) => {
+        const total = row.getValue('totalCoefficient')
+        return total !== undefined ? Number(total).toFixed(2) : undefined
+      },
+      meta: {
+        class: {
+          th: 'align-top',
+          td: 'text-right'
+        }
+      }
+    }
+  ]
+
+  if (hasTrainingCount.value) {
+    baseColumns.push({
+      accessorKey: 'trainingCount',
+      header: 'Training Count',
+      cell: ({ row }) => {
+        const count = row.getValue('trainingCount')
+        return count !== undefined ? count : 'N/A'
+      },
+      meta: {
+        class: {
+          th: 'align-top',
+          td: 'text-right'
+        }
+      }
+    })
+  }
+  if (hasValidationCount.value) {
+    baseColumns.push({
+      accessorKey: 'validationCount',
+      header: 'Validation Count',
+      cell: ({ row }) => {
+        const count = row.getValue('validationCount')
+        return row.getValue('validationCount')
+      },
+      meta: {
+        class: {
+          th: 'align-top',
+          td: 'text-right'
+        }
+      }
+    })
+  }
+  return baseColumns
+})
+</script>
+
+<template>
+  <UTable
+    :columns="columns"
+    :data="descriptors"
+  >
+    <template
+      v-if="aggregated"
+      #body-bottom
+    >
+      <tr
+        v-for="item in aggregated"
+        :key="item.label"
+      >
+        <td :colspan="columns.length">
+          <div class="flex flex-row items-center justify-between p-4">
+            <div class="text-muted text-sm font-semibold">
+              {{ item?.label }} <slot name="aggregatedLabel" />
+            </div>
+            <div class="text-muted text-sm">{{ item?.value }}</div>
+          </div>
+        </td>
+      </tr>
+    </template>
+  </UTable>
+</template>
