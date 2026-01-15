@@ -6,12 +6,12 @@ defineProps<{
 </script>
 
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col items-center">
     <div class="text-muted text-sm">
       {{ label }}
       <slot name="label" />
     </div>
-    <div class="text-primary text-lg font-bold">
+    <div class="text-primary text-xl font-bold">
       {{ value }}
     </div>
   </div>

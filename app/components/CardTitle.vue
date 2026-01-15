@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="flex flex-row items-center justify-between">
+  <div class="flex flex-col justify-between gap-1 lg:flex-row lg:items-center">
     <div class="flex flex-row items-baseline gap-1">
       <span class="font-bold"> {{ title }} <slot name="title" /> </span>
       <span

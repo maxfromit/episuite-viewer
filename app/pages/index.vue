@@ -73,7 +73,7 @@ const loadAnalogs = (casArray: string[]) => {
   <UContainer v-if="!pending">
     <div
       v-if="data"
-      class="flex flex-col justify-center gap-4 px-15 py-10 lg:flex-row"
+      class="flex flex-col justify-center gap-4 py-4 sm:py-6 lg:flex-row lg:px-15 lg:py-10"
     >
       <div class="flex flex-col gap-4 lg:max-w-1/3">
         <MainCard :chemical-properties="mainData" />

@@ -8,13 +8,15 @@ export default defineAppConfig({
       slots: {
         title: 'text-primary font-bold',
         wrapper: '-items-start',
-        body: 'flex flex-col'
+        body: 'flex flex-col',
+        container: 'min-w-0'
       }
     },
 
     tabs: {
       slots: {
-        content: 'px-4 overflow-x-auto'
+        root: 'overflow-x-auto',
+        content: 'px-4 py-2'
       }
     },
 
