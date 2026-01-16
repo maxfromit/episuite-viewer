@@ -83,7 +83,7 @@ const loadAnalogs = (casArray: string[]) => {
                 <template #selectedValues>
                   <SelectedValueCard
                     label="Experimental Log K<sub>OW</sub>"
-                    :value="data?.logKow?.selectedValue?.value"
+                    :value="(data?.logKow?.selectedValue as any)?.value"
                   />
                 </template>
                 <template #table>
@@ -98,11 +98,13 @@ const loadAnalogs = (casArray: string[]) => {
 
             <template #model-descriptors>
               <ModelDescriptorsTable
-                :descriptors="data?.logKow?.estimatedValue?.model?.factors"
+                :descriptors="
+                  (data?.logKow?.estimatedValue as any)?.model?.factors
+                "
                 :aggregated="[
                   {
                     label: 'Log K<sub>OW</sub>',
-                    value: data?.logKow?.estimatedValue?.model?.logKow
+                    value: (data?.logKow?.estimatedValue as any)?.model?.logKow
                   }
                 ]"
               />
@@ -110,7 +112,7 @@ const loadAnalogs = (casArray: string[]) => {
 
             <template #model-output>
               <pre
-                >{{ data?.logKow?.estimatedValue?.model?.output }}
+                >{{ (data?.logKow?.estimatedValue as any)?.model?.output }}
                   </pre
               >
             </template>
@@ -153,8 +155,10 @@ const loadAnalogs = (casArray: string[]) => {
                             <ChemicalPropertyDisplay
                               label="Log K<sub>OW</sub>"
                               :value="
-                                logKowAnalogs[index]?.logKow?.selectedValue
-                                  ?.value
+                                (
+                                  logKowAnalogs[index]?.logKow
+                                    ?.selectedValue as any
+                                )?.value
                               "
                             />
                           </template>
@@ -188,13 +192,13 @@ const loadAnalogs = (casArray: string[]) => {
                 <template #selectedValues>
                   <SelectedValueCard
                     label="Experimental Melting Point"
-                    :value="data?.meltingPoint?.selectedValue.value"
-                    :units="data?.meltingPoint?.selectedValue?.units"
+                    :value="(data?.meltingPoint?.selectedValue as any)?.value"
+                    :units="(data?.meltingPoint?.selectedValue as any)?.units"
                   />
                   <SelectedValueCard
                     label="Estimated Boiling Point"
-                    :value="data?.boilingPoint?.selectedValue.value"
-                    :units="data?.boilingPoint?.selectedValue?.units"
+                    :value="(data?.boilingPoint?.selectedValue as any)?.value"
+                    :units="(data?.boilingPoint?.selectedValue as any)?.units"
                   />
                 </template>
                 <template #table>
@@ -216,34 +220,37 @@ const loadAnalogs = (casArray: string[]) => {
                   </div>
                   <ModelDescriptorsTable
                     :descriptors="
-                      data?.meltingPoint?.estimatedValue?.model?.factors
+                      (data?.meltingPoint?.estimatedValue as any)?.model
+                        ?.factors
                     "
                     :aggregated="[
                       {
                         label: 'Adapted Joback',
-                        value:
-                          data?.meltingPoint?.estimatedValue?.model
-                            ?.meltingPointAdaptedJoback,
-                        units: data?.meltingPoint?.estimatedValue?.units
+                        value: (data?.meltingPoint?.estimatedValue as any)
+                          ?.model?.meltingPointAdaptedJoback,
+                        units: (data?.meltingPoint?.estimatedValue as any)
+                          ?.units
                       },
                       {
                         label: 'Gold-Ogle',
-                        value:
-                          data?.meltingPoint?.estimatedValue?.model
-                            ?.meltingPointGoldOgle,
-                        units: data?.meltingPoint?.estimatedValue?.units
+                        value: (data?.meltingPoint?.estimatedValue as any)
+                          ?.model?.meltingPointGoldOgle,
+                        units: (data?.meltingPoint?.estimatedValue as any)
+                          ?.units
                       },
                       {
                         label: 'Mean Value',
-                        value:
-                          data?.meltingPoint?.estimatedValue?.model
-                            ?.meltingPointMean,
-                        units: data?.meltingPoint?.estimatedValue?.units
+                        value: (data?.meltingPoint?.estimatedValue as any)
+                          ?.model?.meltingPointMean,
+                        units: (data?.meltingPoint?.estimatedValue as any)
+                          ?.units
                       },
                       {
                         label: 'Selected Melting Point (Weighted Mean)',
-                        value: data?.meltingPoint?.estimatedValue?.value,
-                        units: data?.meltingPoint?.estimatedValue?.units
+                        value: (data?.meltingPoint?.estimatedValue as any)
+                          ?.value,
+                        units: (data?.meltingPoint?.estimatedValue as any)
+                          ?.units
                       }
                     ]"
                   />
@@ -255,29 +262,28 @@ const loadAnalogs = (casArray: string[]) => {
                   </div>
                   <ModelDescriptorsTable
                     :descriptors="
-                      data?.boilingPoint?.estimatedValue?.model?.factors
+                      (data?.boilingPoint?.estimatedValue as any)?.model
+                        ?.factors
                     "
                     :aggregated="[
                       {
                         label: 'Uncorrected Value',
-                        value:
-                          data?.boilingPoint?.estimatedValue?.model
-                            ?.boilingPointKelvinsUncorrected,
+                        value: (data?.boilingPoint?.estimatedValue as any)
+                          ?.model?.boilingPointKelvinsUncorrected,
                         units: 'kelvins'
                       },
                       {
                         label: 'Corrected Value',
-                        value:
-                          data?.boilingPoint?.estimatedValue?.model
-                            ?.boilingPointKelvinsCorrected,
+                        value: (data?.boilingPoint?.estimatedValue as any)
+                          ?.model?.boilingPointKelvinsCorrected,
                         units: 'kelvins'
                       },
                       {
                         label: 'Boiling Point',
-                        value:
-                          data?.boilingPoint?.estimatedValue?.model
-                            ?.boilingPointCelsius,
-                        units: data?.boilingPoint?.estimatedValue?.units
+                        value: (data?.boilingPoint?.estimatedValue as any)
+                          ?.model?.boilingPointCelsius,
+                        units: (data?.boilingPoint?.estimatedValue as any)
+                          ?.units
                       }
                     ]"
                   />
@@ -319,15 +325,19 @@ const loadAnalogs = (casArray: string[]) => {
                             <ChemicalPropertyDisplay
                               label="Melting Point"
                               :value="
-                                otherAnalogs[index]?.meltingPoint?.selectedValue
-                                  ?.value
+                                (
+                                  otherAnalogs[index]?.meltingPoint
+                                    ?.selectedValue as any
+                                )?.value
                               "
                             />
                             <ChemicalPropertyDisplay
                               label="Boiling Point"
                               :value="
-                                otherAnalogs[index]?.boilingPoint?.selectedValue
-                                  ?.value
+                                (
+                                  otherAnalogs[index]?.boilingPoint
+                                    ?.selectedValue as any
+                                )?.value
                               "
                             />
                           </template>
