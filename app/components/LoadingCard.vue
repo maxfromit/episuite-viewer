@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { index, length } = defineProps<{
+defineProps<{
   index: number
   length: number
 }>()

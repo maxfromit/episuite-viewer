@@ -23,7 +23,9 @@ const { data: url, pending: pending } = useFetch(
 
 <template>
   <UPageCard>
-    <template #title> {{ chemicalProperties?.name }} </template>
+    <template #title
+      ><span class="wrap-anywhere"> {{ chemicalProperties?.name }}</span>
+    </template>
 
     <USkeleton
       v-if="pending"
@@ -36,24 +38,24 @@ const { data: url, pending: pending } = useFetch(
       class="max-w-3/4"
     />
     <div class="flex flex-col gap-3">
-      <ChemicalProperty
+      <ChemicalPropertyDisplay
         label="Systematic Name"
         :value="chemicalProperties?.systematicName"
       />
-      <ChemicalProperty
+      <ChemicalPropertyDisplay
         label="CAS RN"
         :value="chemicalProperties?.cas"
       />
-      <ChemicalProperty
+      <ChemicalPropertyDisplay
         label="Molecular Formula"
         :value="chemicalProperties?.molecularFormula"
         isMolecularFormula
       />
-      <ChemicalProperty
+      <ChemicalPropertyDisplay
         label="Molecular Mass"
         :value="chemicalProperties?.molecularWeight"
       />
-      <ChemicalProperty
+      <ChemicalPropertyDisplay
         label="SMILES"
         :value="chemicalProperties?.smiles"
       />

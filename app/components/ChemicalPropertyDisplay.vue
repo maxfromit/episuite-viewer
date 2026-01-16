@@ -1,11 +1,13 @@
 <script setup lang="ts">
 defineProps<{
-  label?: string
+  label: string
   value?: string | number | null
   isMolecularFormula?: boolean
 }>()
 
-const getLabelOrNA = (value?: string | number | null): string | number => {
+const formatDisplayValue = (
+  value?: string | number | null
+): string | number => {
   if (typeof value === 'number') {
     return formatValue(value, { decimalPlaces: 3 })
   }
@@ -21,12 +23,15 @@ const formatChemicalFormula = (formula: string | undefined): string => {
 
 <template>
   <div class="flex flex-col wrap-anywhere">
-    <div class="text-muted text-sm">{{ label }} <slot name="label" /></div>
+    <div
+      v-html="label"
+      class="text-muted text-sm"
+    />
     <div
       v-if="!isMolecularFormula"
       class="text-md font-semibold"
     >
-      {{ getLabelOrNA(value) }}
+      {{ formatDisplayValue(value) }}
     </div>
     <div
       v-if="isMolecularFormula && typeof value === 'string'"

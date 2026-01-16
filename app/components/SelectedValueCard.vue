@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-  label?: string
+  label: string
   value?: number
   units?: string | 'celsius'
 }>()
@@ -8,10 +8,7 @@ defineProps<{
 
 <template>
   <div class="flex flex-col items-center">
-    <div class="text-muted text-sm">
-      {{ label }}
-      <slot name="label" />
-    </div>
+    <div v-html="label" class="text-muted text-sm" />
     <div class="text-primary text-xl font-bold">
       {{ formatValue(value, { units }) }}
     </div>

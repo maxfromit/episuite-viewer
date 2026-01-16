@@ -1,22 +1,7 @@
 <script setup lang="ts">
 import type { SubmitResponse } from '../types/episuite-api'
 
-const data = toRef(rawData)
-// type SubmitResponse =
-//   paths['/api/submit']['get']['responses']['200']['content']['application/json']
-
-// const { data, pending } = useEpiSuiteApi('002921-88-2')
-
-// const { data: data, loading: pending } = loadElement('002921-88-2')
-
-// const { data, pending } = useFetch<SubmitResponse>(
-//   'https://episuite.dev/EpiWebSuite/api/submit',
-//   {
-//     query: { cas: '002921-88-2' },
-//     lazy: true,
-//     server: false
-//   }
-// )
+const { data, pending } = useEpiSuiteApi('002921-88-2')
 
 const mainData = computed(() => data.value?.chemicalProperties)
 
@@ -76,18 +61,17 @@ const loadAnalogs = (casArray: string[]) => {
       class="flex flex-col justify-center gap-4 py-4 sm:py-6 lg:flex-row lg:px-15 lg:py-10"
     >
       <div class="flex flex-col gap-4 lg:max-w-1/3">
-        <MainCard :chemical-properties="mainData" />
+        <ChemicalPropertiesCard :chemical-properties="mainData" />
       </div>
 
       <div class="flex flex-col gap-4 lg:max-w-2/3">
         <UPageCard>
           <template #title>
             <CardTitle
+              title="Log K<sub>OW</sub>"
               description="Octanol-Water Partition Coefficient"
-              url="https://episuite.dev/EpiWebSuite/#/help/kowwin"
-            >
-              <template #title> Log K<sub>OW</sub> </template>
-            </CardTitle>
+              guideUrl="https://episuite.dev/EpiWebSuite/#/help/kowwin"
+            />
           </template>
 
           <UTabs
@@ -95,33 +79,33 @@ const loadAnalogs = (casArray: string[]) => {
             variant="link"
           >
             <template #summary>
-              <SummaryTab>
+              <SummaryTabLayout>
                 <template #selectedValues>
                   <SelectedValueCard
+                    label="Experimental Log K<sub>OW</sub>"
                     :value="data?.logKow?.selectedValue?.value"
-                  >
-                    <template #label>
-                      <span> Experimental Log K<sub>OW</sub> </span>
-                    </template>
-                  </SelectedValueCard>
+                  />
                 </template>
                 <template #table>
-                  <SummaryTable :summary="[data?.logKow]">
-                    <template #labelCell> Log K<sub>OW</sub></template>
-                  </SummaryTable>
+                  <SummaryTable
+                    :summaryRows="[
+                      { ...data?.logKow, label: 'Log K<sub>OW</sub>' }
+                    ]"
+                  />
                 </template>
-              </SummaryTab>
+              </SummaryTabLayout>
             </template>
 
             <template #model-descriptors>
               <ModelDescriptorsTable
                 :descriptors="data?.logKow?.estimatedValue?.model?.factors"
                 :aggregated="[
-                  { value: data?.logKow?.estimatedValue?.model?.logKow }
+                  {
+                    label: 'Log K<sub>OW</sub>',
+                    value: data?.logKow?.estimatedValue?.model?.logKow
+                  }
                 ]"
-              >
-                <template #aggregatedLabel> Log K<sub>OW</sub> </template>
-              </ModelDescriptorsTable>
+              />
             </template>
 
             <template #model-output>
@@ -158,7 +142,7 @@ const loadAnalogs = (casArray: string[]) => {
                           class="flex-1"
                         />
 
-                        <MainCard
+                        <ChemicalPropertiesCard
                           v-if="logKowAnalogs[index]"
                           :chemical-properties="
                             logKowAnalogs[index]?.chemicalProperties
@@ -166,18 +150,15 @@ const loadAnalogs = (casArray: string[]) => {
                           class="flex-1"
                         >
                           <template #specificProperties>
-                            <ChemicalProperty
+                            <ChemicalPropertyDisplay
+                              label="Log K<sub>OW</sub>"
                               :value="
                                 logKowAnalogs[index]?.logKow?.selectedValue
                                   ?.value
                               "
-                            >
-                              <template #label>
-                                <span> Log K<sub>OW</sub> </span>
-                              </template>
-                            </ChemicalProperty>
+                            />
                           </template>
-                        </MainCard>
+                        </ChemicalPropertiesCard>
                       </div>
                     </div>
                   </template>
@@ -194,7 +175,7 @@ const loadAnalogs = (casArray: string[]) => {
             <CardTitle
               title="MPBP"
               description="Melting Point and Boiling Point"
-              url="https://episuite.dev/EpiWebSuite/#/help/mpbpvp"
+              guideUrl="https://episuite.dev/EpiWebSuite/#/help/mpbpvp"
             />
           </template>
 
@@ -203,7 +184,7 @@ const loadAnalogs = (casArray: string[]) => {
             variant="link"
           >
             <template #summary>
-              <SummaryTab>
+              <SummaryTabLayout>
                 <template #selectedValues>
                   <SelectedValueCard
                     label="Experimental Melting Point"
@@ -218,13 +199,13 @@ const loadAnalogs = (casArray: string[]) => {
                 </template>
                 <template #table>
                   <SummaryTable
-                    :summary="[
+                    :summaryRows="[
                       { ...data?.meltingPoint, label: 'Melting Point' },
                       { ...data?.boilingPoint, label: 'Boiling Point' }
                     ]"
                   />
                 </template>
-              </SummaryTab>
+              </SummaryTabLayout>
             </template>
 
             <template #model-descriptors>
@@ -327,7 +308,7 @@ const loadAnalogs = (casArray: string[]) => {
                           class="flex-1"
                         />
 
-                        <MainCard
+                        <ChemicalPropertiesCard
                           v-if="otherAnalogs[index]"
                           :chemical-properties="
                             otherAnalogs[index]?.chemicalProperties
@@ -335,14 +316,14 @@ const loadAnalogs = (casArray: string[]) => {
                           class="flex-1"
                         >
                           <template #specificProperties>
-                            <ChemicalProperty
+                            <ChemicalPropertyDisplay
                               label="Melting Point"
                               :value="
                                 otherAnalogs[index]?.meltingPoint?.selectedValue
                                   ?.value
                               "
                             />
-                            <ChemicalProperty
+                            <ChemicalPropertyDisplay
                               label="Boiling Point"
                               :value="
                                 otherAnalogs[index]?.boilingPoint?.selectedValue
@@ -350,7 +331,7 @@ const loadAnalogs = (casArray: string[]) => {
                               "
                             />
                           </template>
-                        </MainCard>
+                        </ChemicalPropertiesCard>
                       </div>
                     </div>
                   </template>
@@ -374,7 +355,7 @@ const loadAnalogs = (casArray: string[]) => {
 
   <USkeleton
     v-if="pending"
-    class="flex min-h-[calc(100vh-var(--ui-header-height))] items-center justify-center"
+    class="flex min-h-dvh items-center justify-center"
   >
     <div class="text-primary font-bold">Loading Results...</div>
   </USkeleton>

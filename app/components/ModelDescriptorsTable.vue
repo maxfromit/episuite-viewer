@@ -4,7 +4,7 @@ import type { TableColumn } from '@nuxt/ui'
 const { descriptors } = defineProps<{
   descriptors: ModelDescriptor[]
   aggregated?: {
-    label?: string
+    label: string
     value: number
     units?: string | 'celsius' | 'kelvins'
   }[]
@@ -127,9 +127,7 @@ const columns = computed((): TableColumn<ModelDescriptor>[] => {
       >
         <td :colspan="columns.length">
           <div class="flex flex-row items-center justify-between p-4">
-            <div class="text-muted text-sm font-semibold">
-              {{ item?.label }} <slot name="aggregatedLabel" />
-            </div>
+            <div  v-html="item?.label" class="text-muted text-sm font-semibold" />
             <div class="text-muted text-sm">
               {{ formatValue(item?.value, { units: item?.units }) }}
             </div>

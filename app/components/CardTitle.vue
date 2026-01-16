@@ -2,14 +2,17 @@
 defineProps<{
   title?: string
   description?: string
-  url?: string
+  guideUrl?: string
 }>()
 </script>
 
 <template>
   <div class="flex flex-col justify-between gap-1 md:flex-row md:items-center">
     <div class="flex flex-row items-baseline gap-1">
-      <span class="font-bold"> {{ title }} <slot name="title" /> </span>
+      <span
+        class="font-bold"
+        v-html="title"
+      />
       <span
         v-if="description"
         class="text-muted text-sm font-medium"
@@ -19,8 +22,8 @@ defineProps<{
     </div>
 
     <ULink
-      v-if="url"
-      :to="url"
+      v-if="guideUrl"
+      :to="guideUrl"
       target="_blank"
     >
       <div class="text-primary flex flex-row items-center-safe gap-1">
