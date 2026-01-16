@@ -5,10 +5,9 @@ defineProps<{
   isMolecularFormula?: boolean
 }>()
 
-const getLabelOrNA = (value?: string | number | null): string => {
-  console.log('value', value)
+const getLabelOrNA = (value?: string | number | null): string | number => {
   if (typeof value === 'number') {
-    return String(Number(value).toFixed(3))
+    return formatValue(value, { decimalPlaces: 3 })
   }
   return value && value.trim().length > 0 ? value : 'N/A'
 }

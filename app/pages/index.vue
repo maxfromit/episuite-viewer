@@ -98,7 +98,7 @@ const loadAnalogs = (casArray: string[]) => {
               <SummaryTab>
                 <template #selectedValues>
                   <SelectedValueCard
-                    :value="data?.logKow?.selectedValue.value.toFixed(2)"
+                    :value="data?.logKow?.selectedValue?.value"
                   >
                     <template #label>
                       <span> Experimental Log K<sub>OW</sub> </span>
@@ -207,11 +207,13 @@ const loadAnalogs = (casArray: string[]) => {
                 <template #selectedValues>
                   <SelectedValueCard
                     label="Experimental Melting Point"
-                    :value="String(data?.meltingPoint?.selectedValue.value)"
+                    :value="data?.meltingPoint?.selectedValue.value"
+                    :units="data?.meltingPoint?.selectedValue?.units"
                   />
                   <SelectedValueCard
                     label="Estimated Boiling Point"
-                    :value="String(data?.boilingPoint?.selectedValue.value)"
+                    :value="data?.boilingPoint?.selectedValue.value"
+                    :units="data?.boilingPoint?.selectedValue?.units"
                   />
                 </template>
                 <template #table>
@@ -240,23 +242,27 @@ const loadAnalogs = (casArray: string[]) => {
                         label: 'Adapted Joback',
                         value:
                           data?.meltingPoint?.estimatedValue?.model
-                            ?.meltingPointAdaptedJoback
+                            ?.meltingPointAdaptedJoback,
+                        units: data?.meltingPoint?.estimatedValue?.units
                       },
                       {
                         label: 'Gold-Ogle',
                         value:
                           data?.meltingPoint?.estimatedValue?.model
-                            ?.meltingPointGoldOgle
+                            ?.meltingPointGoldOgle,
+                        units: data?.meltingPoint?.estimatedValue?.units
                       },
                       {
                         label: 'Mean Value',
                         value:
                           data?.meltingPoint?.estimatedValue?.model
-                            ?.meltingPointMean
+                            ?.meltingPointMean,
+                        units: data?.meltingPoint?.estimatedValue?.units
                       },
                       {
                         label: 'Selected Melting Point (Weighted Mean)',
-                        value: data?.meltingPoint?.estimatedValue?.value
+                        value: data?.meltingPoint?.estimatedValue?.value,
+                        units: data?.meltingPoint?.estimatedValue?.units
                       }
                     ]"
                   />
@@ -275,19 +281,22 @@ const loadAnalogs = (casArray: string[]) => {
                         label: 'Uncorrected Value',
                         value:
                           data?.boilingPoint?.estimatedValue?.model
-                            ?.boilingPointKelvinsUncorrected
+                            ?.boilingPointKelvinsUncorrected,
+                        units: 'kelvins'
                       },
                       {
                         label: 'Corrected Value',
                         value:
                           data?.boilingPoint?.estimatedValue?.model
-                            ?.boilingPointKelvinsCorrected
+                            ?.boilingPointKelvinsCorrected,
+                        units: 'kelvins'
                       },
                       {
                         label: 'Boiling Point',
                         value:
                           data?.boilingPoint?.estimatedValue?.model
-                            ?.boilingPointCelsius
+                            ?.boilingPointCelsius,
+                        units: data?.boilingPoint?.estimatedValue?.units
                       }
                     ]"
                   />

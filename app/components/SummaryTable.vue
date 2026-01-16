@@ -37,7 +37,8 @@ const columns: TableColumn<Summary>[] = [
     },
     meta: {
       class: {
-        th: 'align-top'
+        th: 'align-top text-right',
+        td: 'text-right'
       }
     }
   },
@@ -54,7 +55,8 @@ const columns: TableColumn<Summary>[] = [
     },
     meta: {
       class: {
-        th: 'align-top'
+        th: 'align-top text-right',
+        td: 'text-right'
       }
     }
   },
@@ -67,7 +69,9 @@ const columns: TableColumn<Summary>[] = [
       //   'experimentalValues'
       // ) as Summary['experimentalValues']
       return experimentalValues
-        ? experimentalValues.map((v) => `${v.author} (${v.year})`).join('; ')
+        ? experimentalValues
+            .map((v) => `${v.author} ${v.year ? `(${v.year})` : ''}`)
+            .join('; ')
         : undefined
     },
     meta: {
@@ -90,8 +94,16 @@ const columns: TableColumn<Summary>[] = [
       <slot name="labelCell" />
     </template>
 
+    <template #estimatedValue-cell="{ row }">
+      {{ formatValue(row?.original?.estimatedValue?.value) }}
+    </template>
+
     <template #experimentalValues-cell="{ row }">
-      {{ row?.original?.experimentalValues?.map((v) => v.value).join(', ') }}
+      {{
+        row?.original?.experimentalValues
+          ?.map((v) => formatValue(v.value))
+          .join(', ')
+      }}
     </template>
 
     <!-- <template #references-cell="{ row }">

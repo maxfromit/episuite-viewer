@@ -1,7 +1,8 @@
 <script setup lang="ts">
 defineProps<{
   label?: string
-  value?: string
+  value?: number
+  units?: string | 'celsius'
 }>()
 </script>
 
@@ -12,7 +13,7 @@ defineProps<{
       <slot name="label" />
     </div>
     <div class="text-primary text-xl font-bold">
-      {{ value }}
+      {{ formatValue(value, { units }) }}
     </div>
   </div>
 </template>

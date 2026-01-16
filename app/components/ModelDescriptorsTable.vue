@@ -5,7 +5,8 @@ const { descriptors } = defineProps<{
   descriptors: ModelDescriptor[]
   aggregated?: {
     label?: string
-    value: string | number
+    value: number
+    units?: string | 'celsius' | 'kelvins'
   }[]
 }>()
 
@@ -54,7 +55,7 @@ const columns = computed((): TableColumn<ModelDescriptor>[] => {
       cell: ({ row }) => row.getValue('fragmentCount'),
       meta: {
         class: {
-          th: 'align-top',
+          th: 'align-top text-right',
           td: 'text-right'
         }
       }
@@ -62,13 +63,10 @@ const columns = computed((): TableColumn<ModelDescriptor>[] => {
     {
       accessorKey: 'coefficient',
       header: 'Coefficient',
-      cell: ({ row }) => {
-        const coeff = row.getValue('coefficient')
-        return coeff !== undefined ? Number(coeff).toFixed(2) : undefined
-      },
+      cell: ({ row }) => formatValue(row.getValue('coefficient')),
       meta: {
         class: {
-          th: 'align-top',
+          th: 'align-top text-right',
           td: 'text-right'
         }
       }
@@ -76,13 +74,10 @@ const columns = computed((): TableColumn<ModelDescriptor>[] => {
     {
       accessorKey: 'totalCoefficient',
       header: 'Contribution',
-      cell: ({ row }) => {
-        const total = row.getValue('totalCoefficient')
-        return total !== undefined ? Number(total).toFixed(2) : undefined
-      },
+      cell: ({ row }) => formatValue(row.getValue('totalCoefficient')),
       meta: {
         class: {
-          th: 'align-top',
+          th: 'align-top text-right',
           td: 'text-right'
         }
       }
@@ -93,13 +88,9 @@ const columns = computed((): TableColumn<ModelDescriptor>[] => {
     baseColumns.push({
       accessorKey: 'trainingCount',
       header: 'Training Count',
-      cell: ({ row }) => {
-        const count = row.getValue('trainingCount')
-        return count !== undefined ? count : 'N/A'
-      },
       meta: {
         class: {
-          th: 'align-top',
+          th: 'align-top text-right',
           td: 'text-right'
         }
       }
@@ -109,13 +100,9 @@ const columns = computed((): TableColumn<ModelDescriptor>[] => {
     baseColumns.push({
       accessorKey: 'validationCount',
       header: 'Validation Count',
-      cell: ({ row }) => {
-        const count = row.getValue('validationCount')
-        return row.getValue('validationCount')
-      },
       meta: {
         class: {
-          th: 'align-top',
+          th: 'align-top text-right',
           td: 'text-right'
         }
       }
@@ -143,7 +130,9 @@ const columns = computed((): TableColumn<ModelDescriptor>[] => {
             <div class="text-muted text-sm font-semibold">
               {{ item?.label }} <slot name="aggregatedLabel" />
             </div>
-            <div class="text-muted text-sm">{{ item?.value }}</div>
+            <div class="text-muted text-sm">
+              {{ formatValue(item?.value, { units: item?.units }) }}
+            </div>
           </div>
         </td>
       </tr>
