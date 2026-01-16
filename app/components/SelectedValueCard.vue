@@ -8,7 +8,10 @@ defineProps<{
 
 <template>
   <div class="flex flex-col items-center">
-    <div v-html="label" class="text-muted text-sm" />
+    <div
+      class="text-muted text-sm"
+      v-html="label"
+    />
     <div class="text-primary text-xl font-bold">
       {{ formatValue(value, { units }) }}
     </div>

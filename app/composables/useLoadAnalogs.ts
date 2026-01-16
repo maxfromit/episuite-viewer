@@ -7,7 +7,12 @@ export const useLoadAnalogs = (
 ) => {
   loading.value = true
 
-  const errors = ref<Array<{ cas: string; error: any }>>([])
+  const errors = ref<
+    Array<{
+      cas: string
+      error: unknown
+    }>
+  >([])
 
   casArray.forEach((cas) => {
     const { data, pending, error } = useEpiSuiteApi(cas)

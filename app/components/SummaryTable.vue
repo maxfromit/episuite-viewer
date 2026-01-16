@@ -7,7 +7,7 @@ defineProps<{
 
 type Summary = {
   label: string
-  parameters?: Record<string, any>
+  parameters?: Record<string, unknown>
   estimatedValue?: { value: number }
   experimentalValues?: {
     author: string

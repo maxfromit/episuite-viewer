@@ -16,21 +16,21 @@ const { data, pending } = useEpiSuiteApi('002921-88-2')
 
       <div class="flex flex-col gap-4 lg:max-w-2/3">
         <LogKowCard
-          :logKow="data?.logKow"
-          :casArray="data?.logKowAnalogs"
+          :log-kow="data?.logKow"
+          :cas-array="data?.logKowAnalogs"
         />
 
         <MPBPCard
-          :meltingPoint="data?.meltingPoint"
-          :boilingPoint="data?.boilingPoint"
-          :casArray="data?.analogs"
+          :melting-point="data?.meltingPoint"
+          :boiling-point="data?.boilingPoint"
+          :cas-array="data?.analogs"
         />
       </div>
     </div>
   </UContainer>
 
   <USkeleton
-    v-if="pending"
+    v-else
     class="flex min-h-dvh items-center justify-center"
   >
     <div class="text-primary font-bold">Loading Results...</div>

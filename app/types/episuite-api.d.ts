@@ -2371,5 +2371,4 @@ export interface components {
 export type $defs = Record<string, never>
 export type operations = Record<string, never>
 
-export type SubmitResponse =
-  paths['/api/submit']['get']['responses']['200']['content']['application/json']
+export type SubmitResponse = paths['/api/submit']['get']['responses']['200']['content']['application/json']

@@ -23,8 +23,8 @@ const { data: url, pending: pending } = useFetch(
 
 <template>
   <UPageCard>
-    <template #title
-      ><span class="wrap-anywhere"> {{ chemicalProperties?.name }}</span>
+    <template #title>
+      <span class="wrap-anywhere"> {{ chemicalProperties?.name }}</span>
     </template>
 
     <USkeleton
@@ -49,7 +49,7 @@ const { data: url, pending: pending } = useFetch(
       <ChemicalPropertyDisplay
         label="Molecular Formula"
         :value="chemicalProperties?.molecularFormula"
-        isMolecularFormula
+        is-molecular-formula
       />
       <ChemicalPropertyDisplay
         label="Molecular Mass"

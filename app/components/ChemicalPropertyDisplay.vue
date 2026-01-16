@@ -24,8 +24,8 @@ const formatChemicalFormula = (formula: string | undefined): string => {
 <template>
   <div class="flex flex-col wrap-anywhere">
     <div
-      v-html="label"
       class="text-muted text-sm"
+      v-html="label"
     />
     <div
       v-if="!isMolecularFormula"
@@ -37,6 +37,6 @@ const formatChemicalFormula = (formula: string | undefined): string => {
       v-if="isMolecularFormula && typeof value === 'string'"
       class="text-md font-semibold"
       v-html="formatChemicalFormula(value)"
-    ></div>
+    />
   </div>
 </template>

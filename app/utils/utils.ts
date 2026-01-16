@@ -3,7 +3,10 @@ const formatValue = (
   {
     units,
     decimalPlaces = 2
-  }: { units?: string | 'celsius' | 'kelvins'; decimalPlaces?: number } = {}
+  }: {
+    units?: string | 'celsius' | 'kelvins'
+    decimalPlaces?: number
+  } = {}
 ) => {
   if (value === undefined || value === null) return ''
 

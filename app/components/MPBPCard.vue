@@ -36,7 +36,7 @@ const loadAnalogs = (casArray: string[]) => {
       <CardTitle
         title="MPBP"
         description="Melting Point and Boiling Point"
-        guideUrl="https://episuite.dev/EpiWebSuite/#/help/mpbpvp"
+        guide-url="https://episuite.dev/EpiWebSuite/#/help/mpbpvp"
       />
     </template>
 
@@ -60,7 +60,7 @@ const loadAnalogs = (casArray: string[]) => {
           </template>
           <template #table>
             <SummaryTable
-              :summaryRows="[
+              :summary-rows="[
                 { ...meltingPoint, label: 'Melting Point' },
                 { ...boilingPoint, label: 'Boiling Point' }
               ]"

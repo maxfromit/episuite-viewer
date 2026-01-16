@@ -127,7 +127,10 @@ const columns = computed((): TableColumn<ModelDescriptor>[] => {
       >
         <td :colspan="columns.length">
           <div class="flex flex-row items-center justify-between p-4">
-            <div  v-html="item?.label" class="text-muted text-sm font-semibold" />
+            <div
+              class="text-muted text-sm font-semibold"
+              v-html="item?.label"
+            />
             <div class="text-muted text-sm">
               {{ formatValue(item?.value, { units: item?.units }) }}
             </div>

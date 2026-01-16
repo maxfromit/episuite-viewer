@@ -39,7 +39,7 @@ const loadKowAnalogs = (casArray: string[]) => {
       <CardTitle
         title="Log K<sub>OW</sub>"
         description="Octanol-Water Partition Coefficient"
-        guideUrl="https://episuite.dev/EpiWebSuite/#/help/kowwin"
+        guide-url="https://episuite.dev/EpiWebSuite/#/help/kowwin"
       />
     </template>
 
@@ -57,7 +57,7 @@ const loadKowAnalogs = (casArray: string[]) => {
           </template>
           <template #table>
             <SummaryTable
-              :summaryRows="[{ ...logKow, label: 'Log K<sub>OW</sub>' }]"
+              :summary-rows="[{ ...logKow, label: 'Log K<sub>OW</sub>' }]"
             />
           </template>
         </SummaryTabLayout>
