@@ -22,6 +22,14 @@ useSeoMeta({ title: 'Epi Suite viewer' })
           color="neutral"
           variant="ghost"
         />
+        <UButton
+          to="https://episuite.dev/EpiWebSuite/#/results;cas=002921-88-2"
+          target="_blank"
+          icon="i-lucide-external-link"
+          aria-label="Epi Suite"
+          color="neutral"
+          variant="ghost"
+        />
       </template>
     </UFooter>
   </UApp>

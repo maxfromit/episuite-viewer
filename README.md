@@ -33,9 +33,11 @@ pnpm preview
 
 - `pages/index.vue` — main dashboard displaying chemical properties with tabbed interface
 - `components/` — UI building blocks:
-  - `CardTitle.vue` — section header with description and guide link
+  - `LogKowCard.vue` — Log K_OW property section with tabs
+  - `MPBPCard.vue` — Melting/Boiling Point property section with tabs
   - `ChemicalPropertiesCard.vue` — displays basic chemical info
   - `ChemicalPropertyDisplay.vue` — shows individual chemical property with label (used in ChemicalPropertiesCard)
+  - `CardTitle.vue` — section header with description and guide link
   - `SelectedValueCard.vue` — highlight selected property value with units
   - `SummaryTabLayout.vue` — layout wrapper for summary tab sections
   - `SummaryTable.vue` — tabular display of estimated and experimental values (Nuxt UI Table)
@@ -65,4 +67,6 @@ pnpm preview
 - **Value formatting**: Automatic conversion of large numbers to scientific notation, unit display (°C, °K)
 - **Lazy loading**: To show loading state while opening the page
 
+## Source
 
+**Epi Suite** - [https://episuite.dev/EpiWebSuite/](https://episuite.dev/EpiWebSuite/#/results;cas=002921-88-2)
