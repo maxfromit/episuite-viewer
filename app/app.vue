@@ -10,9 +10,7 @@ useSeoMeta({ title: 'Epi Suite viewer' })
 
     <UFooter>
       <template #left>
-        <p class="text-sm text-muted">
-          Maxim Polyakov • © 2026
-        </p>
+        <p class="text-muted text-sm">Maxim Polyakov • © 2026</p>
       </template>
 
       <template #right>
