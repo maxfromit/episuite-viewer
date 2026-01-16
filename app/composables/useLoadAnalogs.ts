@@ -1,12 +1,14 @@
 import type { SubmitResponse } from '../types/episuite-api'
 
-export const useLoadAnalogsCompo = (
+export const useLoadAnalogs = (
   casArray: string[],
   analogs: Ref<SubmitResponse[]>,
   loading: Ref<boolean>
 ) => {
   loading.value = true
+
   const errors = ref<Array<{ cas: string; error: any }>>([])
+
   casArray.forEach((cas) => {
     const { data, pending, error } = useEpiSuiteApi(cas)
 
